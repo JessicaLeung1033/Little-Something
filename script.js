@@ -729,14 +729,15 @@ async function getPhotoUrl(photoPath) {
 
 async function uploadPhoto(file, momentId) {
   if (localMode) return null; // photos stored as base64 in local mode
+  if (!supabaseClient || !state.userId) return null;
   try {
-    const ext = file.name.split('.').pop() || 'jpg';
+    const compressed = await compressImage(file, 1200, 0.8);
+    const contentType = compressed.type || 'image/jpeg';
+    const ext = contentType === 'image/png' ? 'png' : 'jpg';
     const path = `${state.userId}/${momentId}.${ext}`;
 
-    const compressed = await compressImage(file, 1200, 0.8);
-
     const { error } = await supabaseClient.storage.from('photos').upload(path, compressed, {
-      contentType: compressed.type || 'image/jpeg',
+      contentType,
       upsert: true,
     });
 
@@ -748,6 +749,18 @@ async function uploadPhoto(file, momentId) {
   } catch (e) {
     console.warn('uploadPhoto failed:', e);
     return null;
+  }
+}
+
+async function deleteUploadedPhoto(photoPath) {
+  if (!photoPath || localMode || !supabaseClient) return;
+  try {
+    const { error } = await supabaseClient.storage.from('photos').remove([photoPath]);
+    if (error) {
+      console.warn('deleteUploadedPhoto error:', error);
+    }
+  } catch (e) {
+    console.warn('deleteUploadedPhoto failed:', e);
   }
 }
 
@@ -774,7 +787,7 @@ function compressImage(file, maxDim, quality) {
   });
 }
 
-async function saveMomentToDb(momentData) {
+async function saveMomentToDb(momentData, { allowLocalFallback = true } = {}) {
   if (localMode) {
     saveLocal();
     return momentData;
@@ -793,14 +806,21 @@ async function saveMomentToDb(momentData) {
 
     if (error) {
       console.error('Save moment error:', error);
-      saveLocal();
-      return momentData;
+      if (allowLocalFallback) {
+        saveLocal();
+        return momentData;
+      }
+      return null;
     }
     return data;
   } catch (e) {
-    console.warn('saveMomentToDb failed, saved locally:', e);
-    saveLocal();
-    return momentData;
+    if (allowLocalFallback) {
+      console.warn('saveMomentToDb failed, saved locally:', e);
+      saveLocal();
+      return momentData;
+    }
+    console.warn('saveMomentToDb failed:', e);
+    return null;
   }
 }
 
@@ -1276,6 +1296,11 @@ async function saveMoment() {
   let photoPath = null;
   if (state.newPhotoFile) {
     photoPath = await uploadPhoto(state.newPhotoFile, momentId);
+    if (!photoPath && !localMode) {
+      btn.disabled = false;
+      showToast('照片上传失败，请重试');
+      return;
+    }
   }
 
   const moment = {
@@ -1292,14 +1317,15 @@ async function saveMoment() {
   // Save to Supabase
   state.moments.push(moment);
 
-  const saved = await saveMomentToDb(moment);
+  const saved = await saveMomentToDb(moment, { allowLocalFallback: false });
   btn.disabled = false;
 
   if (!saved) {
     // Rollback: remove the moment we just pushed
     const idx = state.moments.findIndex(m => m.id === moment.id);
     if (idx !== -1) state.moments.splice(idx, 1);
-    showToast('保存失败，请重试');
+    await deleteUploadedPhoto(photoPath);
+    showToast(localMode ? '保存失败，请重试' : '云端保存失败，请重试');
     return;
   }
 
