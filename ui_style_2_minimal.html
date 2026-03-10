@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Something — Style 2: Clean Minimal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f5f5f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 20px;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+  }
+  .style-label {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .style-label h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: #1a1a1a;
+    font-weight: normal;
+    letter-spacing: 1px;
+  }
+  .style-label p {
+    font-size: 12px;
+    color: #999;
+    margin-top: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 280px);
+    gap: 48px;
+    justify-content: center;
+    max-width: 1400px;
+  }
+  .screen-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .screen-label {
+    font-size: 10px;
+    color: #aaa;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .phone {
+    width: 280px;
+    height: 560px;
+    background: #ffffff;
+    border-radius: 36px;
+    box-shadow:
+      0 0 0 1px #e8e8e8,
+      0 24px 64px rgba(0,0,0,0.08),
+      0 8px 24px rgba(0,0,0,0.04);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .status-bar {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    font-size: 10px;
+    color: #999;
+    flex-shrink: 0;
+  }
+  .nav-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 64px;
+    background: #ffffff;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 24px;
+  }
+  .nav-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .nav-tab .t-line {
+    width: 20px; height: 2px;
+    background: #e0e0e0;
+    border-radius: 1px;
+  }
+  .nav-tab.active .t-line { background: #1a1a1a; }
+  .nav-tab span {
+    font-size: 9px;
+    color: #ccc;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .nav-tab.active span { color: #1a1a1a; }
+  .nav-fab {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+  }
+
+  /* ============ S1: HOME ============ */
+  .s1-bg {
+    flex: 1;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .s1-top {
+    padding: 4px 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+  }
+  .s1-wordmark {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 18px;
+    color: #1a1a1a;
+    font-style: italic;
+  }
+  .bottle-icon-btn {
+    width: 32px; height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #999;
+  }
+  .divider {
+    margin: 10px 24px;
+    height: 1px;
+    background: #f0f0f0;
+  }
+  .bubble-m {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    animation: float-m 7s ease-in-out infinite;
+    overflow: hidden;
+  }
+  @keyframes float-m {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .bm1 { width: 88px; height: 88px; left: 24px; top: 70px; background: #f7f7f5; animation-delay: 0s; }
+  .bm2 { width: 68px; height: 68px; right: 36px; top: 110px; background: #f2f4f8; animation-delay: 1.2s; }
+  .bm3 { width: 76px; height: 76px; left: 90px; top: 180px; background: #f8f5f2; animation-delay: 2.4s; }
+  .bm4 { width: 60px; height: 60px; right: 24px; top: 250px; background: #f5f8f5; animation-delay: 0.6s; }
+  .bm5 { width: 72px; height: 72px; left: 28px; top: 290px; background: #f6f2f8; animation-delay: 1.8s; }
+  .bubble-m-inner {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .bubble-m-emoji { font-size: 22px; }
+  .bubble-m-text {
+    font-size: 7px;
+    color: #aaa;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  /* ============ S2: DETAIL ============ */
+  .s2-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+  }
+  .s2-dim {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    align-items: flex-end;
+  }
+  .detail-sheet {
+    width: 100%;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 16px 24px 80px;
+  }
+  .sheet-handle {
+    width: 32px; height: 3px;
+    background: #e8e8e8;
+    border-radius: 2px;
+    margin: 0 auto 18px;
+  }
+  .detail-img {
+    width: 100%;
+    height: 140px;
+    border-radius: 12px;
+    background: #f5f5f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .detail-img-line {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: #1a1a1a;
+  }
+  .detail-m-text {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 13px;
+    font-style: italic;
+    color: #2a2a2a;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .detail-m-date {
+    font-size: 10px;
+    color: #bbb;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .detail-m-actions {
+    display: flex;
+    gap: 10px;
+  }
+  .btn-m-back {
+    width: 40px; height: 40px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #666;
+  }
+  .btn-m-share {
+    flex: 1; height: 40px;
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ============ S3: CREATE ============ */
+  .s3-bg {
+    flex: 1;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 4px 24px;
+    gap: 14px;
+    overflow: hidden;
+  }
+  .create-m-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .create-m-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 17px;
+    font-style: italic;
+    color: #1a1a1a;
+  }
+  .close-m-btn {
+    font-size: 14px;
+    color: #aaa;
+    width: 28px; height: 28px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .photo-m-picker {
+    height: 160px;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #fafafa;
+  }
+  .photo-m-icon { font-size: 24px; color: #ccc; }
+  .photo-m-text {
+    font-size: 11px;
+    color: #bbb;
+    letter-spacing: 1px;
+  }
+  .text-m-area {
+    flex: 1;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 14px;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #ddd;
+    line-height: 1.7;
+    background: #fafafa;
+    min-height: 80px;
+  }
+  .save-m-btn {
+    height: 48px;
+    border-radius: 8px;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ============ S4: LUCKY BOTTLE ============ */
+  .s4-bg {
+    flex: 1;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4px;
+    overflow: hidden;
+  }
+  .s4-m-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  .s4-m-sub {
+    font-size: 10px;
+    color: #bbb;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .bottle-m-visual {
+    width: 110px; height: 180px;
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .bottle-m-body {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 72px; height: 134px;
+    border: 1.5px solid #1a1a1a;
+    border-radius: 8px 8px 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bottle-m-neck {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 24px; height: 46px;
+    border: 1.5px solid #1a1a1a;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+  }
+  .star-m { font-size: 16px; animation: breathe-m 3.5s ease-in-out infinite; }
+  .star-m:nth-child(2) { animation-delay: 1.1s; font-size: 13px; opacity: 0.7; }
+  .star-m:nth-child(3) { animation-delay: 2.2s; font-size: 10px; opacity: 0.5; }
+  @keyframes breathe-m {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .count-m {
+    font-size: 10px;
+    color: #bbb;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .unhappy-m-btn {
+    margin: 16px 24px 80px;
+    height: 44px;
+    border: 1px solid #1a1a1a;
+    border-radius: 8px;
+    width: calc(100% - 48px);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  /* ============ COLLECT MODE ============ */
+  .s5-bg {
+    flex: 1;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .collect-m-banner {
+    position: absolute;
+    top: 48px; left: 20px; right: 20px;
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-align: center;
+    z-index: 20;
+  }
+  .bubble-m-collect {
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    animation: float-m 7s ease-in-out infinite;
+    border: 1.5px solid #1a1a1a;
+  }
+  .bmc1 { width: 88px; height: 88px; left: 24px; top: 70px; animation-delay: 0s; }
+  .bmc2 { width: 68px; height: 68px; right: 36px; top: 110px; animation-delay: 1.2s; }
+  .bmc3 { width: 76px; height: 76px; left: 90px; top: 180px; animation-delay: 2.4s; }
+
+  /* ============ MOOD POPUP ============ */
+  .s6-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+  }
+  .s6-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .mood-m-popup {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .mood-m-line {
+    width: 32px; height: 1px;
+    background: #e8e8e8;
+    margin-bottom: 4px;
+  }
+  .mood-m-emoji { font-size: 32px; }
+  .mood-m-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
+    color: #1a1a1a;
+    text-align: center;
+  }
+  .mood-m-sub {
+    font-size: 11px;
+    color: #aaa;
+    text-align: center;
+    line-height: 1.7;
+    letter-spacing: 0.2px;
+  }
+  .mood-m-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    margin-top: 6px;
+  }
+  .mood-m-cancel {
+    flex: 1; height: 40px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #aaa;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mood-m-confirm {
+    flex: 1; height: 40px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    font-size: 11px;
+    color: #fff;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ============ MEMORY REVEAL ============ */
+  .s7-bg {
+    flex: 1;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 4px 24px 80px;
+    gap: 14px;
+    overflow: hidden;
+  }
+  .mem-m-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .mem-m-back {
+    font-size: 16px;
+    color: #666;
+    width: 28px;
+  }
+  .mem-m-title {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #1a1a1a;
+  }
+  .mem-m-photo {
+    width: 100%;
+    height: 180px;
+    background: #f5f5f0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mem-m-photo::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: #1a1a1a;
+  }
+  .mem-m-text {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #2a2a2a;
+    line-height: 1.8;
+  }
+  .mem-m-tagline {
+    font-size: 10px;
+    color: #bbb;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding-top: 6px;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  /* Connectors */
+  .flow-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #ccc;
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+  .arr-line {
+    width: 1px; height: 28px;
+    background: #e0e0e0;
+  }
+  .arr-head { font-size: 14px; color: #ccc; }
+
+  .section-title {
+    font-size: 10px;
+    color: #bbb;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 48px 0 28px;
+    width: 100%;
+    max-width: 1400px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+</style>
+</head>
+<body>
+
+<div class="style-label">
+  <h1>Little Something</h1>
+  <p>Style 02 &mdash; Clean Minimal &mdash; Quiet, editorial, typographic</p>
+</div>
+
+<!-- FLOW A -->
+<div class="section-title">Flow A &mdash; Record &amp; Browse</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S1 &middot; Home / Moments</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s1-bg">
+        <div class="s1-top">
+          <div class="s1-wordmark">little something</div>
+          <div class="bottle-icon-btn">&#x1F9F4;</div>
+        </div>
+        <div class="divider"></div>
+        <div class="bubble-m bm1"><div class="bubble-m-inner"><div class="bubble-m-emoji">&#x1F305;</div><div class="bubble-m-text">sunrise walk</div></div></div>
+        <div class="bubble-m bm2"><div class="bubble-m-inner"><div class="bubble-m-emoji">&#x2615;</div><div class="bubble-m-text">hot cocoa</div></div></div>
+        <div class="bubble-m bm3"><div class="bubble-m-inner"><div class="bubble-m-emoji">&#x1F408;</div><div class="bubble-m-text">cat nap</div></div></div>
+        <div class="bubble-m bm4"><div class="bubble-m-inner"><div class="bubble-m-emoji">&#x1F327;</div><div class="bubble-m-text">rain</div></div></div>
+        <div class="bubble-m bm5"><div class="bubble-m-inner"><div class="bubble-m-emoji">&#x1F4DA;</div><div class="bubble-m-text">book cafe</div></div></div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab active"><div class="t-line"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab"><div class="t-line"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arr-line"></div>
+    <div class="arr-head">&#8595;</div>
+    <span>tap bubble</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S3 &middot; Detail / Moment</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s2-bg">
+        <div class="s2-dim">
+          <div class="detail-sheet">
+            <div class="sheet-handle"></div>
+            <div class="detail-img">&#x1F305;<div class="detail-img-line"></div></div>
+            <div class="detail-m-text">"Caught the most beautiful sunrise this morning. The sky turned every shade of pink."</div>
+            <div class="detail-m-date">March 7, 2026 &middot; 6:23 AM</div>
+            <div class="detail-m-actions">
+              <div class="btn-m-back">&#8592;</div>
+              <div class="btn-m-share">Share Moment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arr-line"></div>
+    <div class="arr-head">&#8595;</div>
+    <span>tap +</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S2 &middot; Create / Moment</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s3-bg">
+        <div class="create-m-header">
+          <div class="create-m-title">New moment</div>
+          <div class="close-m-btn">&#x2715;</div>
+        </div>
+        <div class="photo-m-picker">
+          <div class="photo-m-icon">&#x1F4F7;</div>
+          <div class="photo-m-text">Photo or camera</div>
+        </div>
+        <div class="text-m-area">What made you smile a little today?</div>
+        <div class="save-m-btn">Save &amp; Float</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FLOW B -->
+<div class="section-title">Flow B &mdash; Collect into Bottle</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S6 &middot; Home / Collect Mode</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s5-bg">
+        <div class="s1-top" style="padding-top:4px;">
+          <div class="s1-wordmark">little something</div>
+          <div style="font-size:10px;color:#1a1a1a;letter-spacing:1px;border-bottom:1px solid #1a1a1a;">Done</div>
+        </div>
+        <div class="divider"></div>
+        <div class="collect-m-banner">Tap a bubble to collect it</div>
+        <div class="bubble-m-collect bmc1"><div class="bubble-m-inner" style="border:none;"><div class="bubble-m-emoji">&#x1F305;</div><div class="bubble-m-text">sunrise walk</div></div></div>
+        <div class="bubble-m-collect bmc2"><div class="bubble-m-inner" style="border:none;"><div class="bubble-m-emoji">&#x2615;</div><div class="bubble-m-text">hot cocoa</div></div></div>
+        <div class="bubble-m-collect bmc3"><div class="bubble-m-inner" style="border:none;"><div class="bubble-m-emoji">&#x1F408;</div><div class="bubble-m-text">cat nap</div></div></div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab active"><div class="t-line"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab"><div class="t-line"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arr-line"></div>
+    <div class="arr-head">&#8595;</div>
+    <span>collect &amp; view</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S4 &middot; Lucky Bottle / Main</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s4-bg">
+        <div class="s4-m-title">Lucky Bottle</div>
+        <div class="s4-m-sub">Your little somethings</div>
+        <div class="bottle-m-visual">
+          <div class="bottle-m-neck"></div>
+          <div class="bottle-m-body">
+            <div class="star-m">&#11088;</div>
+            <div class="star-m">&#11088;</div>
+            <div class="star-m">&#11088;</div>
+            <div class="star-m">&#10022;</div>
+          </div>
+        </div>
+        <div class="count-m">something is waiting for you inside</div>
+        <div style="flex:1;"></div>
+        <div class="unhappy-m-btn">&#128577;&nbsp;&nbsp;I'm not happy</div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab"><div class="t-line"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab active"><div class="t-line"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FLOW C -->
+<div class="section-title">Flow C &mdash; Mood / Comfort</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S8 &middot; Mood / Popup</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s6-bg">
+        <div class="s6-overlay">
+          <div class="mood-m-popup">
+            <div class="mood-m-line"></div>
+            <div class="mood-m-emoji">&#128577;</div>
+            <div class="mood-m-title">Want your bottle to cheer you up?</div>
+            <div class="mood-m-sub">There's something inside waiting for moments just like this one.</div>
+            <div class="mood-m-actions">
+              <div class="mood-m-cancel">Not now</div>
+              <div class="mood-m-confirm">Open it</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arr-line"></div>
+    <div class="arr-head">&#8595;</div>
+    <span>confirm</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S11 &middot; Memory Reveal</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s7-bg">
+        <div class="mem-m-header">
+          <div class="mem-m-back">&#8592;</div>
+          <div class="mem-m-title">A memory for you</div>
+        </div>
+        <div class="mem-m-photo">&#x1F305;</div>
+        <div class="mem-m-text">"Caught the most beautiful sunrise this morning. The sky turned every shade of pink I didn't know existed."</div>
+        <div class="mem-m-tagline">Don't be sad anymore — look how happy you were, back then.</div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab"><div class="t-line"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab active"><div class="t-line"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

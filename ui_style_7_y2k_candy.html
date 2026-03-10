@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Something — Style 7: Retro Y2K Candy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(135deg, #ff9de2 0%, #a8d8ff 35%, #fffb96 65%, #b5ffd9 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 20px;
+    font-family: 'Nunito', 'Arial Rounded MT Bold', sans-serif;
+  }
+  .style-label {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .style-label h1 {
+    font-size: 28px;
+    font-weight: 900;
+    color: #ff3db4;
+    text-shadow: 3px 3px 0 rgba(255,61,180,0.25), 0 0 20px rgba(255,100,200,0.4);
+    letter-spacing: 2px;
+    font-style: italic;
+  }
+  .style-label p {
+    font-size: 12px;
+    color: #8850a0;
+    margin-top: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 280px);
+    gap: 48px;
+    justify-content: center;
+    max-width: 1400px;
+  }
+  .screen-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .screen-label {
+    font-size: 10px;
+    color: #8850a0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 800;
+  }
+  .phone {
+    width: 280px;
+    height: 560px;
+    background: #ffffff;
+    border-radius: 44px;
+    box-shadow:
+      0 0 0 3px #ff9de2,
+      0 0 0 6px #ffffff,
+      0 0 0 9px #a8d8ff,
+      0 20px 60px rgba(200,100,200,0.3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .status-bar {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #ff3db4;
+    flex-shrink: 0;
+    background: linear-gradient(90deg, rgba(255,157,226,0.3), rgba(168,216,255,0.3));
+  }
+  .nav-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 66px;
+    background: rgba(255,255,255,0.95);
+    border-top: 2px solid rgba(255,157,226,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 24px;
+    backdrop-filter: blur(8px);
+  }
+  .nav-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    opacity: 0.3;
+  }
+  .nav-tab.active { opacity: 1; }
+  .nav-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #ff3db4;
+    box-shadow: 0 0 6px rgba(255,61,180,0.6);
+  }
+  .nav-tab span {
+    font-size: 9px;
+    color: #ff3db4;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+  .nav-fab {
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff3db4, #ff8c00);
+    box-shadow:
+      0 0 0 3px white,
+      0 4px 20px rgba(255,61,180,0.5),
+      0 0 0 6px rgba(255,61,180,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  /* HOME */
+  .s1-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(170deg, #fff0f9 0%, #f0f8ff 50%, #fffff0 100%);
+  }
+  /* Y2K star decorations */
+  .deco-star {
+    position: absolute;
+    font-size: 14px;
+    animation: spin-star 4s linear infinite;
+    opacity: 0.5;
+  }
+  @keyframes spin-star {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .s1-header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 8px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+    background: linear-gradient(180deg, rgba(255,240,249,0.95), transparent);
+  }
+  .s1-title {
+    font-size: 15px;
+    font-weight: 900;
+    font-style: italic;
+    color: #ff3db4;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(255,61,180,0.3);
+  }
+  .bottle-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fffb96, #ffda00);
+    box-shadow: 0 3px 10px rgba(255,200,0,0.4), 0 0 0 2px white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+  }
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    animation: float-candy 6s ease-in-out infinite;
+  }
+  @keyframes float-candy {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    40% { transform: translateY(-16px) scale(1.04); }
+    70% { transform: translateY(-8px) scale(1.02); }
+  }
+  /* glossy Y2K bubble style */
+  .b1 { width: 88px; height: 88px; left: 18px; top: 55px;
+    background: radial-gradient(circle at 35% 25%, rgba(255,255,255,0.9) 0%, rgba(255,157,226,0.85) 40%, rgba(255,61,180,0.75) 100%);
+    box-shadow: 0 6px 20px rgba(255,61,180,0.35), inset 0 -3px 8px rgba(255,61,180,0.3), 0 0 0 2px rgba(255,157,226,0.5);
+    animation-delay: 0s; }
+  .b2 { width: 72px; height: 72px; right: 22px; top: 90px;
+    background: radial-gradient(circle at 35% 25%, rgba(255,255,255,0.9) 0%, rgba(168,216,255,0.85) 40%, rgba(80,160,255,0.75) 100%);
+    box-shadow: 0 6px 20px rgba(80,160,255,0.35), inset 0 -3px 8px rgba(80,160,255,0.3), 0 0 0 2px rgba(168,216,255,0.5);
+    animation-delay: 1.2s; }
+  .b3 { width: 82px; height: 82px; left: 68px; top: 168px;
+    background: radial-gradient(circle at 35% 25%, rgba(255,255,255,0.9) 0%, rgba(255,251,150,0.85) 40%, rgba(255,180,0,0.75) 100%);
+    box-shadow: 0 6px 20px rgba(255,180,0,0.35), inset 0 -3px 8px rgba(255,180,0,0.3), 0 0 0 2px rgba(255,251,150,0.5);
+    animation-delay: 0.6s; }
+  .b4 { width: 64px; height: 64px; right: 18px; top: 228px;
+    background: radial-gradient(circle at 35% 25%, rgba(255,255,255,0.9) 0%, rgba(181,255,217,0.85) 40%, rgba(0,200,100,0.75) 100%);
+    box-shadow: 0 6px 20px rgba(0,200,100,0.35), inset 0 -3px 8px rgba(0,200,100,0.3), 0 0 0 2px rgba(181,255,217,0.5);
+    animation-delay: 2s; }
+  .b5 { width: 76px; height: 76px; left: 18px; top: 278px;
+    background: radial-gradient(circle at 35% 25%, rgba(255,255,255,0.9) 0%, rgba(220,180,255,0.85) 40%, rgba(150,60,255,0.75) 100%);
+    box-shadow: 0 6px 20px rgba(150,60,255,0.35), inset 0 -3px 8px rgba(150,60,255,0.3), 0 0 0 2px rgba(220,180,255,0.5);
+    animation-delay: 1.5s; }
+  .bubble-inner {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  /* large glossy highlight */
+  .bubble-gloss {
+    position: absolute;
+    top: 6%; left: 10%;
+    width: 40%; height: 28%;
+    background: rgba(255,255,255,0.75);
+    border-radius: 50%;
+    transform: rotate(-30deg);
+    filter: blur(1px);
+  }
+  .bubble-text {
+    font-size: 7px;
+    font-weight: 800;
+    color: rgba(80,20,60,0.85);
+    text-align: center;
+    padding-bottom: 13%;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  /* DETAIL */
+  .s2-overlay {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(170deg, #fff0f9 0%, #f0f8ff 100%);
+  }
+  .s2-blur-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,157,226,0.3);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: flex-end;
+  }
+  .detail-card {
+    width: 100%;
+    background: rgba(255,255,255,0.95);
+    border-radius: 32px 32px 0 0;
+    padding: 18px 18px 80px;
+    box-shadow: 0 -6px 30px rgba(255,61,180,0.15);
+    border-top: 3px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+  }
+  .detail-card::before {
+    content: '';
+    position: absolute;
+    top: -3px; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff3db4, #a8d8ff, #fffb96, #b5ffd9);
+    border-radius: 3px 3px 0 0;
+  }
+  .detail-pill {
+    width: 36px; height: 4px;
+    background: linear-gradient(90deg, #ff3db4, #a8d8ff);
+    border-radius: 2px;
+    margin: 0 auto 14px;
+  }
+  .detail-photo {
+    width: 100%; height: 152px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #ffd6ef, #d6eeff, #ffffd6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 30px;
+    border: 2px solid rgba(255,157,226,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+  .detail-photo::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.4), transparent);
+    border-radius: 22px 22px 0 0;
+  }
+  .detail-text {
+    font-size: 12px;
+    font-weight: 400;
+    color: #6040a0;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .detail-date {
+    font-size: 10px;
+    font-weight: 700;
+    color: #c0a0d0;
+    letter-spacing: 1px;
+  }
+  .detail-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .btn-share {
+    flex: 1; height: 40px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ff3db4, #ff8c00);
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(255,61,180,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .btn-back {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a8d8ff, #7ec8e3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 900;
+    color: white;
+    box-shadow: 0 3px 10px rgba(100,180,255,0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+
+  /* CREATE */
+  .s3-bg {
+    flex: 1;
+    background: linear-gradient(170deg, #fff0f9 0%, #f0f8ff 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 8px 18px;
+    gap: 12px;
+    overflow: hidden;
+  }
+  .create-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .create-title {
+    font-size: 14px;
+    font-weight: 900;
+    font-style: italic;
+    color: #ff3db4;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 8px rgba(255,61,180,0.25);
+  }
+  .close-btn {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a8d8ff, #7ec8e3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+    color: white;
+    box-shadow: 0 2px 8px rgba(100,180,255,0.4);
+  }
+  .photo-picker {
+    height: 174px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(255,157,226,0.15), rgba(168,216,255,0.15));
+    border: 2px dashed rgba(255,61,180,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .photo-picker-icon { font-size: 28px; }
+  .photo-picker-text {
+    font-size: 10px;
+    font-weight: 800;
+    color: #ff3db4;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .text-area {
+    flex: 1;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.8);
+    border: 2px solid rgba(255,157,226,0.4);
+    padding: 13px 15px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+  }
+  .text-placeholder {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(200,100,160,0.5);
+    line-height: 1.6;
+  }
+  .save-btn {
+    height: 48px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #ff3db4, #ff8c00);
+    color: white;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(255,61,180,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+
+  /* LUCKY BOTTLE */
+  .s4-bg {
+    flex: 1;
+    background: linear-gradient(170deg, #fff0f9 0%, #f0f8ff 50%, #fffff0 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 8px;
+  }
+  .s4-title {
+    font-size: 14px;
+    font-weight: 900;
+    font-style: italic;
+    color: #ff3db4;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+    text-shadow: 0 0 8px rgba(255,61,180,0.25);
+  }
+  .bottle-visual {
+    width: 90px; height: 132px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .bottle-neck {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 22px; height: 32px;
+    background: linear-gradient(180deg, rgba(220,180,255,0.85), rgba(180,140,255,0.7));
+    border-radius: 6px 6px 0 0;
+    border: 1.5px solid rgba(200,150,255,0.6);
+    border-bottom: none;
+    box-shadow: inset 1px 0 4px rgba(255,255,255,0.4);
+  }
+  .bottle-body {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 66px; height: 106px;
+    background: linear-gradient(160deg, rgba(220,180,255,0.7), rgba(168,216,255,0.6));
+    border-radius: 8px 8px 22px 22px;
+    border: 1.5px solid rgba(200,150,255,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    box-shadow:
+      inset 0 0 20px rgba(255,255,255,0.3),
+      inset 2px 0 8px rgba(255,255,255,0.2),
+      0 6px 20px rgba(150,100,255,0.25);
+  }
+  .star-in-bottle {
+    font-size: 14px;
+    animation: twinkle 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 4px rgba(255,200,0,0.8));
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.85); }
+  }
+  .star-count {
+    font-size: 10px;
+    font-weight: 800;
+    color: #a060c0;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .stars-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    padding: 0 16px;
+    margin-top: 10px;
+  }
+  .star-chip {
+    background: linear-gradient(135deg, rgba(255,157,226,0.3), rgba(168,216,255,0.3));
+    border-radius: 14px;
+    padding: 5px 10px;
+    font-size: 9px;
+    font-weight: 800;
+    color: #8050b0;
+    border: 1.5px solid rgba(255,100,200,0.3);
+    letter-spacing: 0.3px;
+  }
+  .unhappy-btn {
+    height: 38px;
+    padding: 0 22px;
+    border-radius: 19px;
+    background: rgba(255,255,255,0.85);
+    border: 2px solid rgba(255,157,226,0.5);
+    font-size: 12px;
+    font-weight: 800;
+    color: #ff3db4;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 3px 12px rgba(255,61,180,0.2), inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+
+  /* COLLECT MODE */
+  .s5-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(170deg, #fff0f9 0%, #f0f8ff 100%);
+  }
+  .collect-banner {
+    position: absolute;
+    top: 48px; left: 14px; right: 14px;
+    background: linear-gradient(135deg, rgba(255,157,226,0.5), rgba(168,216,255,0.5));
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(255,100,200,0.4);
+    border-radius: 16px;
+    padding: 9px 14px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #c020a0;
+    text-align: center;
+    letter-spacing: 0.3px;
+    z-index: 20;
+    box-shadow: 0 4px 16px rgba(255,61,180,0.2);
+  }
+  .collect-mode-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(255,61,180,0.5);
+    animation: pulse-candy 2s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(255,61,180,0.25);
+  }
+  @keyframes pulse-candy {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+  .cr1 { width: 96px; height: 96px; left: 12px; top: 52px; }
+  .cr2 { width: 80px; height: 80px; right: 18px; top: 88px; }
+  .cr3 { width: 90px; height: 90px; left: 64px; top: 166px; }
+
+  /* MOOD POPUP */
+  .s6-overlay-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(170deg, #fff0f9 0%, #f0f8ff 100%);
+  }
+  .mood-popup {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,157,226,0.35);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+  }
+  .popup-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 30px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    padding: 26px 20px 20px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(200,80,180,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+  }
+  .popup-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 32px;
+    background: linear-gradient(135deg, #ff3db4, #a8d8ff, #fffb96, #b5ffd9);
+    z-index: -1;
+  }
+  .popup-emoji { font-size: 34px; }
+  .popup-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: #c020a0;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .popup-sub {
+    font-size: 11px;
+    font-weight: 400;
+    color: #9070b0;
+    text-align: center;
+    line-height: 1.7;
+  }
+  .popup-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 4px;
+  }
+  .popup-btn-confirm {
+    flex: 1; height: 40px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ff3db4, #ff8c00);
+    color: white;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(255,61,180,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .popup-btn-cancel {
+    flex: 1; height: 40px;
+    border-radius: 20px;
+    background: rgba(168,216,255,0.3);
+    border: 2px solid rgba(168,216,255,0.6);
+    color: #5090c0;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* MEMORY REVEAL */
+  .s7-bg {
+    flex: 1;
+    background: linear-gradient(170deg, #fff0f9 0%, #f0f8ff 50%, #fffff0 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 8px 18px 80px;
+    gap: 12px;
+    overflow: hidden;
+  }
+  .memory-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .back-btn {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a8d8ff, #7ec8e3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 900;
+    color: white;
+    box-shadow: 0 2px 8px rgba(100,180,255,0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+  .memory-title {
+    font-size: 12px;
+    font-weight: 900;
+    font-style: italic;
+    color: #c020a0;
+    letter-spacing: 0.5px;
+  }
+  .memory-photo {
+    width: 100%; height: 174px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #ffd6ef, #d6eeff, #ffffd6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255,157,226,0.5);
+    box-shadow: 0 8px 30px rgba(255,61,180,0.2);
+  }
+  .memory-photo::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 35%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.5), transparent);
+  }
+  .memory-glow {
+    position: absolute;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    filter: blur(18px);
+  }
+  .memory-star-icon { font-size: 34px; position: relative; z-index: 1; filter: drop-shadow(0 0 8px rgba(255,200,0,0.8)); }
+  .memory-caption {
+    background: rgba(255,255,255,0.85);
+    border: 2px solid rgba(255,157,226,0.35);
+    border-radius: 20px;
+    padding: 13px 16px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #6040a0;
+    line-height: 1.7;
+    box-shadow: 0 4px 16px rgba(255,61,180,0.1);
+  }
+  .memory-tagline {
+    font-size: 10px;
+    font-weight: 800;
+    font-style: italic;
+    color: #ff3db4;
+    text-align: center;
+    letter-spacing: 0.3px;
+    text-shadow: 0 0 8px rgba(255,61,180,0.3);
+  }
+
+  .flow-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 0;
+  }
+  .arrow-line {
+    width: 2px; height: 22px;
+    background: linear-gradient(180deg, #ff3db4, #a8d8ff);
+    border-radius: 1px;
+  }
+  .arrow-head { font-size: 16px; color: #ff3db4; }
+  .flow-connector span { font-size: 9px; font-weight: 800; color: #c060a0; letter-spacing: 1.5px; text-transform: uppercase; }
+  .section-title {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 900;
+    color: #c020a0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 44px 0 24px;
+    width: 100%;
+    max-width: 1400px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(255,61,180,0.25);
+  }
+</style>
+</head>
+<body>
+
+<div class="style-label">
+  <h1>Little Something &#10024;</h1>
+  <p>Style 07 &mdash; Retro Y2K Candy &mdash; Glossy, bubbly, candy pop energy</p>
+</div>
+
+<div class="section-title">Flow A &mdash; Record &amp; Browse</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S1 &middot; Home / Moments</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s1-bg">
+        <div class="deco-star" style="top:38%;right:10px;animation-delay:0s;">&#10022;</div>
+        <div class="deco-star" style="top:55%;left:8px;animation-delay:1s;font-size:10px;">&#10022;</div>
+        <div class="s1-header">
+          <div class="s1-title">little something!</div>
+          <div class="bottle-btn">&#x1F9F4;</div>
+        </div>
+        <div class="bubble b1"><div class="bubble-inner"><div class="bubble-gloss"></div><div class="bubble-text">sunrise walk</div></div></div>
+        <div class="bubble b2"><div class="bubble-inner"><div class="bubble-gloss"></div><div class="bubble-text">hot cocoa</div></div></div>
+        <div class="bubble b3"><div class="bubble-inner"><div class="bubble-gloss"></div><div class="bubble-text">cat nap</div></div></div>
+        <div class="bubble b4"><div class="bubble-inner"><div class="bubble-gloss"></div><div class="bubble-text">rain day</div></div></div>
+        <div class="bubble b5"><div class="bubble-inner"><div class="bubble-gloss"></div><div class="bubble-text">book cafe</div></div></div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab"><div class="nav-dot" style="background:#ddd;box-shadow:none;"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arrow-line"></div>
+    <div class="arrow-head">&#8595;</div>
+    <span>tap bubble</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S3 &middot; Detail / Moment</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s2-overlay">
+        <div class="bubble b1" style="opacity:0.35;"></div>
+        <div class="bubble b3" style="opacity:0.35;"></div>
+        <div class="s2-blur-bg">
+          <div class="detail-card">
+            <div class="detail-pill"></div>
+            <div class="detail-photo">&#x1F305;</div>
+            <div class="detail-text">"Caught the most beautiful sunrise this morning. The sky turned every shade of pink I didn't know existed."</div>
+            <div class="detail-date">March 7, 2026 &middot; 6:23 AM</div>
+            <div class="detail-actions">
+              <div class="btn-back">&#8592;</div>
+              <div class="btn-share">Share this moment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arrow-line"></div>
+    <div class="arrow-head">&#8595;</div>
+    <span>tap +</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S2 &middot; Create / Moment</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s3-bg">
+        <div class="create-header">
+          <div class="create-title">New Moment!</div>
+          <div class="close-btn">&#x2715;</div>
+        </div>
+        <div class="photo-picker">
+          <div class="photo-picker-icon">&#x1F4F7;</div>
+          <div class="photo-picker-text">Tap to capture or choose</div>
+        </div>
+        <div class="text-area">
+          <span class="text-placeholder">What made your heart smile today...</span>
+        </div>
+        <div class="save-btn">Save &amp; Float &#10024;</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-title">Flow B &mdash; Collect into Bottle</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S6 &middot; Home / Collect Mode</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s5-bg">
+        <div class="s1-header">
+          <div class="s1-title">little something!</div>
+          <div class="bottle-btn" style="background:linear-gradient(135deg,#b5ffd9,#00e080);font-size:10px;font-weight:900;color:white;width:auto;padding:0 10px;border-radius:14px;box-shadow:0 2px 8px rgba(0,200,100,0.4);">Done</div>
+        </div>
+        <div class="collect-banner">Tap a bubble to collect it &#x2728;</div>
+        <div class="collect-mode-ring cr1"></div>
+        <div class="collect-mode-ring cr2"></div>
+        <div class="collect-mode-ring cr3"></div>
+        <div class="bubble b1"><div class="bubble-inner"><div class="bubble-gloss"></div><div class="bubble-text">sunrise walk</div></div></div>
+        <div class="bubble b2"><div class="bubble-inner"><div class="bubble-gloss"></div><div class="bubble-text">hot cocoa</div></div></div>
+        <div class="bubble b3"><div class="bubble-inner"><div class="bubble-gloss"></div><div class="bubble-text">cat nap</div></div></div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab"><div class="nav-dot" style="background:#ddd;box-shadow:none;"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arrow-line"></div>
+    <div class="arrow-head">&#8595;</div>
+    <span>tap bubble</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S4 &middot; Lucky Bottle / Main</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s4-bg">
+        <div class="deco-star" style="top:10%;right:12px;animation-delay:0.5s;">&#10022;</div>
+        <div class="s4-title">lucky bottle &#x1F9F4;</div>
+        <div class="bottle-visual">
+          <div class="bottle-neck"></div>
+          <div class="bottle-body">
+            <div class="star-in-bottle">&#11088;</div>
+            <div class="star-in-bottle" style="animation-delay:0.6s;">&#11088;</div>
+            <div class="star-in-bottle" style="animation-delay:1.2s;">&#10022;</div>
+          </div>
+        </div>
+        <div class="star-count">3 little somethings</div>
+        <div class="stars-grid">
+          <div class="star-chip">&#11088; sunrise walk</div>
+          <div class="star-chip">&#11088; hot cocoa</div>
+          <div class="star-chip">&#10022; cat nap</div>
+        </div>
+        <div style="flex:1;"></div>
+        <div class="unhappy-btn" style="margin-bottom:80px;">&#128577; I'm not happy</div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab"><div class="nav-dot" style="background:#ddd;box-shadow:none;"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-title">Flow C &mdash; Mood / Comfort</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S8 &middot; Mood / Popup</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s6-overlay-bg">
+        <div class="mood-popup">
+          <div class="popup-card">
+            <div class="popup-emoji">&#128577;</div>
+            <div class="popup-title">Feeling down?</div>
+            <div class="popup-sub">Let's open a little something from your bottle — a memory just for you.</div>
+            <div class="popup-actions">
+              <div class="popup-btn-cancel">Maybe later</div>
+              <div class="popup-btn-confirm">Yes, show me!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arrow-line"></div>
+    <div class="arrow-head">&#8595;</div>
+    <span>confirm</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S11 &middot; Mood / Memory Reveal</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s7-bg">
+        <div class="memory-header">
+          <div class="back-btn">&#8592;</div>
+          <div class="memory-title">a little something for you &#10024;</div>
+        </div>
+        <div class="memory-photo">
+          <div class="memory-glow"></div>
+          <div class="memory-star-icon">&#11088;</div>
+        </div>
+        <div class="memory-caption">"Caught the most beautiful sunrise this morning. The sky turned every shade of pink..."</div>
+        <div class="memory-tagline">"Don't be sad — look at this beautiful moment you had!"</div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab"><div class="nav-dot" style="background:#ddd;box-shadow:none;"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

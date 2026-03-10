@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Little Something</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer onerror="window.__sbLoadFailed=true"></script>
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<div class="app-shell">
+  <div class="phone-frame" id="phone-frame">
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span id="status-time">9:41</span>
+      <div class="status-right">
+        <span>&#9679;&#9679;&#9679;</span>
+      </div>
+    </div>
+
+    <!-- Auth Screen -->
+    <div class="auth-screen" id="auth-screen">
+      <div class="auth-inner">
+        <span class="auth-wordmark">little something</span>
+        <p class="auth-subtitle">record life's little joys</p>
+
+        <div class="auth-panel active" id="auth-panel-login" data-auth-view="login">
+          <p class="auth-section-title">邮箱登录</p>
+          <div class="auth-section-line"></div>
+          <div class="auth-form">
+            <label class="sr-only" for="auth-email">登录邮箱</label>
+            <input type="email" class="auth-input" id="auth-email" placeholder="your@email.com" autocomplete="email" inputmode="email">
+            <label class="sr-only" for="auth-password">登录密码</label>
+            <input type="password" class="auth-input" id="auth-password" placeholder="输入密码" autocomplete="current-password">
+          </div>
+          <button type="button" class="auth-btn" id="btn-auth-login">登录</button>
+          <p class="auth-error" id="auth-error-login" aria-live="polite"></p>
+                    <button type="button" class="auth-tertiary-btn" id="btn-auth-go-signup">注册</button>
+          <button type="button" class="auth-tertiary-btn" id="btn-auth-skip">先不登录，本地使用</button>
+        </div>
+
+        <div class="auth-panel" id="auth-panel-signup" data-auth-view="signup">
+          <button type="button" class="auth-back-btn" id="btn-auth-back-login">返回登录</button>
+          <p class="auth-section-title">邮箱注册</p>
+          <div class="auth-section-line"></div>
+          <div class="auth-form">
+            <label class="sr-only" for="auth-signup-email">注册邮箱</label>
+            <input type="email" class="auth-input" id="auth-signup-email" placeholder="your@email.com" autocomplete="email" inputmode="email">
+            <label class="sr-only" for="auth-signup-password">注册密码</label>
+            <input type="password" class="auth-input" id="auth-signup-password" placeholder="设置密码 (至少6位)" autocomplete="new-password">
+            <label class="sr-only" for="auth-signup-password-confirm">确认密码</label>
+            <input type="password" class="auth-input" id="auth-signup-password-confirm" placeholder="确认密码" autocomplete="new-password">
+          </div>
+          <button type="button" class="auth-btn" id="btn-auth-signup">注册</button>
+          <p class="auth-error" id="auth-error-signup" aria-live="polite"></p>
+          <p class="auth-hint" id="auth-hint-signup" aria-live="polite">注册后我们会发送验证邮件到你的邮箱</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div class="loading-overlay visible" id="loading-overlay">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <!-- App Content -->
+    <div class="app-content" id="app-content" style="display:none">
+
+      <!-- S1: Home / Moments -->
+      <div class="screen active" id="screen-home">
+        <div class="home-header">
+          <span class="wordmark">little something</span>
+          <div class="home-header-right">
+            <button class="bottle-icon-btn" id="btn-bottle-icon" aria-label="Collect into bottle"><svg class="bottle-icon-svg" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1h4v5h-4z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 6c-2.5 2.5-4 4.5-4 7v13a4 4 0 004 4h6a4 4 0 004-4V13c0-2.5-1.5-4.5-4-7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="19" r="1" fill="currentColor" opacity="0.35"/><circle cx="10" cy="22" r="0.7" fill="currentColor" opacity="0.25"/><circle cx="14" cy="16.5" r="0.7" fill="currentColor" opacity="0.25"/></svg></button>
+            <button class="logout-btn" id="btn-logout" aria-label="Logout" title="退出登录">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="screen-divider"></div>
+        <div class="bubbles-container" id="bubbles-container">
+          <div class="collect-banner" id="collect-banner">
+            <span>Tap a bubble to collect it &#10022;</span>
+            <span class="collect-banner-done" id="btn-collect-done">Done</span>
+          </div>
+          <div class="empty-home" id="empty-home">
+            <span class="empty-home-emoji">&#x1F331;</span>
+            <p class="empty-home-text">&#x53BB;&#x8BB0;&#x5F55;&#x4ECA;&#x5929;&#x7B2C;&#x4E00;&#x4E2A;&#x5C0F;&#x786E;&#x5E78;&#x5427;</p>
+            <p class="empty-home-hint">tap + to begin</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- S2: Create / Moment -->
+      <div class="screen" id="screen-create">
+        <div class="create-header">
+          <span class="create-title">New moment</span>
+          <button class="btn-close" id="btn-create-close">&#x2715;</button>
+        </div>
+        <div class="photo-picker" id="photo-picker">
+          <span class="photo-picker-icon">&#x1F4F7;</span>
+          <span class="photo-picker-text">Photo or camera</span>
+          <input type="file" id="photo-input" accept="image/*" class="sr-only">
+        </div>
+        <textarea
+          class="text-input-area"
+          id="moment-text"
+          placeholder="&#x4ECA;&#x5929;&#x6709;&#x4EC0;&#x4E48;&#x8BA9;&#x4F60;&#x5C0F;&#x5C0F;&#x9AD8;&#x5174;&#x4E86;&#x4E00;&#x4E0B;&#xFF1F;"
+          maxlength="200"
+        ></textarea>
+        <button class="btn-save" id="btn-save-moment">Save &amp; Float &#10022;</button>
+      </div>
+
+      <!-- S3: Lucky Bottle -->
+      <div class="screen" id="screen-bottle">
+        <div class="bottle-screen-inner">
+          <div class="bottle-header">
+            <h2 class="bottle-title">Lucky Bottle</h2>
+            <p class="bottle-subtitle">Your little somethings</p>
+          </div>
+          <!-- Bottle with stars -->
+          <div class="bottle-visual-area" id="bottle-visual-area">
+            <div class="bottle-svg-wrap" id="bottle-svg-wrap">
+              <div class="bottle-neck"></div>
+              <div class="bottle-body" id="bottle-body"></div>
+            </div>
+            <p class="bottle-count-text" id="bottle-count-text">something is waiting for you inside</p>
+          </div>
+          <!-- Empty state -->
+          <div class="bottle-empty-state" id="bottle-empty-state">
+            <span class="bottle-empty-icon">&#x1FAD9;</span>
+            <p class="bottle-empty-text">&#x5148;&#x53BB;&#x9996;&#x9875;&#x6536;&#x85CF;&#x51E0;&#x4E2A;&#x5C0F;&#x786E;&#x5E78;&#x5427;&#xFF0C;&#x7B49;&#x4F60;&#x4E0D;&#x5F00;&#x5FC3;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5B83;&#x4EEC;&#x4F1A;&#x6765;&#x627E;&#x4F60;</p>
+          </div>
+        </div>
+        <button class="btn-unhappy" id="btn-unhappy">&#x1F61F;&nbsp;&nbsp;I'm not happy</button>
+      </div>
+
+    </div><!-- /app-content -->
+
+    <!-- Tab Bar -->
+    <div class="tab-bar" id="tab-bar" style="display:none">
+      <button class="tab-btn active" data-tab="home" id="tab-home">
+        <div class="tab-line"></div>
+        <span>Little</span>
+      </button>
+      <button class="fab-btn" id="fab-create">+</button>
+      <button class="tab-btn" data-tab="bottle" id="tab-bottle">
+        <div class="tab-line"></div>
+        <span>Bottle</span>
+      </button>
+    </div>
+
+    <!-- ===== OVERLAYS (cover full phone) ===== -->
+
+    <!-- Detail Overlay -->
+    <div class="overlay" id="overlay-detail">
+      <div class="detail-backdrop" id="detail-backdrop"></div>
+      <div class="detail-sheet" id="detail-sheet">
+        <div class="sheet-handle"></div>
+        <div class="detail-image-area" id="detail-image-area">
+          <span id="detail-emoji">&#x1F305;</span>
+        </div>
+        <p class="detail-text" id="detail-text"></p>
+        <p class="detail-date" id="detail-date"></p>
+        <div class="detail-actions">
+          <button class="btn-share" id="btn-detail-share">&#8679;&nbsp;Share Moment</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mood Confirm Popup -->
+    <div class="overlay" id="overlay-mood-confirm">
+      <div class="mood-popup-card" id="mood-popup-card">
+        <div class="mood-popup-line"></div>
+        <span class="mood-popup-emoji">&#x1F61F;</span>
+        <h3 class="mood-popup-title">&#x8981;&#x8BA9;&#x613F;&#x671B;&#x74F6;&#x5E2E;&#x4F60;&#x627E;&#x627E;&#x5FEB;&#x4E50;&#x5417;&#xFF1F;</h3>
+        <p class="mood-popup-sub">There's something inside, waiting for moments just like this one.</p>
+        <div class="mood-popup-actions">
+          <button class="btn-mood-cancel" id="btn-mood-cancel">Not now</button>
+          <button class="btn-mood-confirm" id="btn-mood-confirm">Open it &#10022;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mood Animation Overlay -->
+    <div class="overlay" id="overlay-mood-anim">
+      <!-- Soft vignette halo -->
+      <div class="mood-halo" id="mood-halo"></div>
+      <!-- Bottle (gentle sway & rise) -->
+      <div class="mood-scene-bottle" id="mood-scene-bottle">
+        <div class="anim-bottle-neck"></div>
+        <div class="anim-bottle-body" id="anim-bottle-body">
+          <span class="anim-star">&#11088;</span>
+          <span class="anim-star">&#10022;</span>
+          <span class="anim-star">&#11088;</span>
+        </div>
+      </div>
+      <!-- The chosen star (grows to fill screen as lens) -->
+      <div class="mood-scene-star" id="mood-scene-star">&#11088;</div>
+      <!-- Warm fade layer -->
+      <div class="mood-scene-flash" id="mood-scene-flash"></div>
+    </div>
+
+    <!-- Memory Reveal Overlay -->
+    <div class="overlay" id="overlay-memory">
+      <div class="memory-header">
+        <span class="memory-header-title">&#x4E0D;&#x8981;&#x4E0D;&#x5F00;&#x5FC3;&#x4E86;&#xFF0C;&#x4F60;&#x770B;&#xFF0C;&#x90A3;&#x65F6;&#x5019;&#x7684;&#x4F60;&#x6709;&#x591A;&#x5FEB;&#x4E50;</span>
+      </div>
+      <div class="memory-content">
+        <div class="memory-photo-area" id="memory-photo-area">
+          <span id="memory-emoji">&#x1F305;</span>
+        </div>
+        <p class="memory-text" id="memory-text"></p>
+        <p class="memory-date" id="memory-date"></p>
+      </div>
+      <div class="memory-footer">
+        <button class="btn-memory-float" id="btn-memory-float">Float &#10022;</button>
+        <button class="btn-memory-return" id="btn-memory-return">&#x8F7B;&#x8F7B;&#x653E;&#x56DE;&#x53BB;</button>
+      </div>
+    </div>
+
+    <!-- Share poster canvas (hidden) -->
+    <canvas id="share-canvas" style="display:none;"></canvas>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+  </div><!-- /phone-frame -->
+</div><!-- /app-shell -->
+
+<script src="script.js" defer></script>
+</body>
+</html>

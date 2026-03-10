@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Something — Style 5: Neo-Brutalist</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f0ede6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 20px;
+    font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
+  }
+  .style-label {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .style-label h1 {
+    font-size: 28px;
+    color: #0a0a0a;
+    font-weight: 900;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    border-bottom: 4px solid #0a0a0a;
+    padding-bottom: 6px;
+    display: inline-block;
+  }
+  .style-label p {
+    font-size: 11px;
+    color: #444;
+    margin-top: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: 'Arial', sans-serif;
+  }
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 280px);
+    gap: 52px;
+    justify-content: center;
+    max-width: 1400px;
+  }
+  .screen-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .screen-label {
+    font-size: 10px;
+    color: #444;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+  }
+  .phone {
+    width: 280px;
+    height: 560px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 3px solid #0a0a0a;
+    box-shadow: 6px 6px 0px #0a0a0a;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .status-bar {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    font-size: 10px;
+    color: #0a0a0a;
+    flex-shrink: 0;
+    font-weight: 700;
+    border-bottom: 2px solid #0a0a0a;
+    background: #f5f200;
+  }
+  .nav-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 62px;
+    background: #ffffff;
+    border-top: 3px solid #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 20px;
+  }
+  .nav-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    opacity: 0.3;
+  }
+  .nav-tab.active { opacity: 1; }
+  .nav-dot {
+    width: 8px; height: 8px;
+    border: 2px solid #0a0a0a;
+    background: #ff2d78;
+  }
+  .nav-tab span {
+    font-size: 8px;
+    color: #0a0a0a;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+  .nav-fab {
+    width: 46px; height: 46px;
+    border: 3px solid #0a0a0a;
+    border-radius: 4px;
+    background: #ff2d78;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  /* HOME */
+  .s1-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+  }
+  .s1-header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+    border-bottom: 2px solid #0a0a0a;
+    background: #ffffff;
+  }
+  .s1-title {
+    font-size: 13px;
+    color: #0a0a0a;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .bottle-btn {
+    width: 32px; height: 32px;
+    border: 2px solid #0a0a0a;
+    border-radius: 4px;
+    background: #f5f200;
+    box-shadow: 2px 2px 0 #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .bubble {
+    position: absolute;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2.5px solid #0a0a0a;
+    animation: float-brutal 5s ease-in-out infinite;
+  }
+  @keyframes float-brutal {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  .b1 { width: 88px; height: 88px; left: 18px; top: 58px;
+    background: #ff2d78;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    animation-delay: 0s; }
+  .b2 { width: 72px; height: 72px; right: 22px; top: 90px;
+    background: #f5f200;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    animation-delay: 0.8s; }
+  .b3 { width: 82px; height: 82px; left: 68px; top: 170px;
+    background: #00d4ff;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    animation-delay: 1.4s; }
+  .b4 { width: 62px; height: 62px; right: 18px; top: 232px;
+    background: #9eff00;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    animation-delay: 0.4s; }
+  .b5 { width: 76px; height: 76px; left: 18px; top: 278px;
+    background: #ff9f00;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    animation-delay: 1.8s; }
+  .bubble-inner {
+    width: 100%; height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bubble-text {
+    font-size: 8px;
+    color: #0a0a0a;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* DETAIL */
+  .s2-overlay {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+  }
+  .s2-blur-bg {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: flex-end;
+  }
+  .detail-card {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 0;
+    border-top: 3px solid #0a0a0a;
+    padding: 18px 18px 80px;
+  }
+  .detail-pill {
+    width: 36px; height: 4px;
+    background: #ff2d78;
+    margin: 0 auto 14px;
+  }
+  .detail-photo {
+    width: 100%; height: 150px;
+    border: 2.5px solid #0a0a0a;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0 #0a0a0a;
+    background: #f5f200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 30px;
+  }
+  .detail-text {
+    font-size: 11px;
+    color: #0a0a0a;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 400;
+  }
+  .detail-date {
+    font-size: 9px;
+    color: #666;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .detail-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .btn-share {
+    flex: 1; height: 40px;
+    border: 2.5px solid #0a0a0a;
+    border-radius: 4px;
+    background: #ff2d78;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    color: white;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-back {
+    width: 40px; height: 40px;
+    border: 2.5px solid #0a0a0a;
+    border-radius: 4px;
+    background: #f5f200;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 900;
+    color: #0a0a0a;
+  }
+
+  /* CREATE */
+  .s3-bg {
+    flex: 1;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 16px;
+    gap: 10px;
+    overflow: hidden;
+  }
+  .create-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0a0a0a;
+  }
+  .create-title {
+    font-size: 13px;
+    color: #0a0a0a;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .close-btn {
+    width: 28px; height: 28px;
+    border: 2px solid #0a0a0a;
+    border-radius: 4px;
+    background: #f5f200;
+    box-shadow: 2px 2px 0 #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+    color: #0a0a0a;
+  }
+  .photo-picker {
+    height: 172px;
+    border: 2.5px dashed #0a0a0a;
+    border-radius: 4px;
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .photo-picker-icon { font-size: 26px; }
+  .photo-picker-text {
+    font-size: 9px;
+    color: #444;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .text-area {
+    flex: 1;
+    border: 2px solid #0a0a0a;
+    border-radius: 4px;
+    background: #ffffff;
+    padding: 12px 14px;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+  }
+  .text-placeholder {
+    font-size: 11px;
+    color: #aaa;
+    font-family: 'Arial', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  .save-btn {
+    height: 46px;
+    border: 2.5px solid #0a0a0a;
+    border-radius: 4px;
+    background: #ff2d78;
+    box-shadow: 4px 4px 0 #0a0a0a;
+    color: white;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* LUCKY BOTTLE */
+  .s4-bg {
+    flex: 1;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+  }
+  .s4-title {
+    font-size: 12px;
+    color: #0a0a0a;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #0a0a0a;
+    padding-bottom: 4px;
+    margin-bottom: 14px;
+  }
+  .bottle-visual {
+    width: 90px; height: 130px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .bottle-neck {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 22px; height: 30px;
+    background: #00d4ff;
+    border: 2px solid #0a0a0a;
+    border-bottom: none;
+  }
+  .bottle-body {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 66px; height: 104px;
+    background: #00d4ff;
+    border: 2px solid #0a0a0a;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  .star-in-bottle {
+    font-size: 14px;
+    animation: twinkle 2s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .star-count {
+    font-size: 9px;
+    color: #0a0a0a;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .stars-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    padding: 0 16px;
+    margin-top: 10px;
+  }
+  .star-chip {
+    background: #f5f200;
+    border: 2px solid #0a0a0a;
+    border-radius: 2px;
+    box-shadow: 2px 2px 0 #0a0a0a;
+    padding: 4px 9px;
+    font-size: 8px;
+    color: #0a0a0a;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .unhappy-btn {
+    height: 38px;
+    padding: 0 20px;
+    border: 2.5px solid #0a0a0a;
+    border-radius: 4px;
+    background: #ffffff;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    font-size: 10px;
+    color: #0a0a0a;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* COLLECT MODE */
+  .s5-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+  }
+  .collect-banner {
+    position: absolute;
+    top: 48px; left: 12px; right: 12px;
+    background: #9eff00;
+    border: 2px solid #0a0a0a;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 10px;
+    font-weight: 900;
+    color: #0a0a0a;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    z-index: 20;
+  }
+  .collect-mode-ring {
+    position: absolute;
+    border: 2.5px solid #ff2d78;
+    animation: pulse-brutal 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse-brutal {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.06); }
+  }
+  .cr1 { width: 96px; height: 96px; border-radius: 4px; left: 12px; top: 52px; }
+  .cr2 { width: 80px; height: 80px; border-radius: 4px; right: 18px; top: 88px; }
+  .cr3 { width: 88px; height: 88px; border-radius: 4px; left: 62px; top: 168px; }
+
+  /* MOOD POPUP */
+  .s6-overlay-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+  }
+  .mood-popup {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .popup-card {
+    background: #ffffff;
+    border: 3px solid #0a0a0a;
+    border-radius: 8px;
+    box-shadow: 6px 6px 0 #0a0a0a;
+    padding: 26px 20px 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .popup-emoji { font-size: 32px; }
+  .popup-title {
+    font-size: 14px;
+    color: #0a0a0a;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .popup-sub {
+    font-size: 10px;
+    color: #555;
+    text-align: center;
+    line-height: 1.7;
+    font-family: 'Arial', sans-serif;
+    font-weight: 400;
+  }
+  .popup-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    margin-top: 6px;
+  }
+  .popup-btn-confirm {
+    flex: 1; height: 40px;
+    border: 2.5px solid #0a0a0a;
+    border-radius: 4px;
+    background: #ff2d78;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    color: white;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .popup-btn-cancel {
+    flex: 1; height: 40px;
+    border: 2.5px solid #0a0a0a;
+    border-radius: 4px;
+    background: #f5f200;
+    box-shadow: 3px 3px 0 #0a0a0a;
+    color: #0a0a0a;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* MEMORY REVEAL */
+  .s7-bg {
+    flex: 1;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 16px 76px;
+    gap: 10px;
+    overflow: hidden;
+  }
+  .memory-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0a0a0a;
+  }
+  .back-btn {
+    width: 28px; height: 28px;
+    border: 2px solid #0a0a0a;
+    border-radius: 4px;
+    background: #f5f200;
+    box-shadow: 2px 2px 0 #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 900;
+    color: #0a0a0a;
+  }
+  .memory-title {
+    font-size: 10px;
+    color: #0a0a0a;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .memory-photo {
+    width: 100%; height: 170px;
+    border: 2.5px solid #0a0a0a;
+    box-shadow: 4px 4px 0 #0a0a0a;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #f5f200, #9eff00);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .memory-star-icon { font-size: 32px; }
+  .memory-caption {
+    border: 2px solid #0a0a0a;
+    border-radius: 4px;
+    background: #f8f8f8;
+    padding: 12px 14px;
+    font-size: 11px;
+    color: #222;
+    line-height: 1.7;
+    font-family: 'Arial', sans-serif;
+  }
+  .memory-tagline {
+    font-size: 10px;
+    color: #ff2d78;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-top: 2px solid #ff2d78;
+    padding-top: 8px;
+  }
+
+  .flow-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 0;
+  }
+  .arrow-line {
+    width: 2px; height: 22px;
+    background: #0a0a0a;
+  }
+  .arrow-head { font-size: 16px; color: #0a0a0a; font-weight: 900; }
+  .flow-connector span { font-size: 9px; color: #666; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; }
+  .section-title {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 900;
+    color: #0a0a0a;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 44px 0 24px;
+    width: 100%;
+    max-width: 1400px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #0a0a0a;
+  }
+</style>
+</head>
+<body>
+
+<div class="style-label">
+  <h1>Little Something</h1>
+  <p>Style 05 &mdash; Neo-Brutalist &mdash; Bold, raw, graphic design energy</p>
+</div>
+
+<div class="section-title">Flow A &mdash; Record &amp; Browse</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S1 &middot; Home / Moments</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s1-bg">
+        <div class="s1-header">
+          <div class="s1-title">Little Something</div>
+          <div class="bottle-btn">&#x1F9F4;</div>
+        </div>
+        <div class="bubble b1"><div class="bubble-inner"><div class="bubble-text">sunrise walk</div></div></div>
+        <div class="bubble b2"><div class="bubble-inner"><div class="bubble-text">hot cocoa</div></div></div>
+        <div class="bubble b3"><div class="bubble-inner"><div class="bubble-text">cat nap</div></div></div>
+        <div class="bubble b4"><div class="bubble-inner"><div class="bubble-text">rain</div></div></div>
+        <div class="bubble b5"><div class="bubble-inner"><div class="bubble-text">book cafe</div></div></div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab"><div class="nav-dot" style="background:#ccc;border-color:#999;"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arrow-line"></div>
+    <div class="arrow-head">&#8595;</div>
+    <span>tap bubble</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S3 &middot; Detail / Moment</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s2-overlay">
+        <div class="bubble b1" style="opacity:0.3;"></div>
+        <div class="bubble b3" style="opacity:0.3;"></div>
+        <div class="s2-blur-bg">
+          <div class="detail-card">
+            <div class="detail-pill"></div>
+            <div class="detail-photo">&#x1F305;</div>
+            <div class="detail-text">"Caught the most beautiful sunrise this morning. The sky turned every shade of pink I didn't know existed."</div>
+            <div class="detail-date">March 7, 2026 &middot; 6:23 AM</div>
+            <div class="detail-actions">
+              <div class="btn-back">&#8592;</div>
+              <div class="btn-share">Share this moment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arrow-line"></div>
+    <div class="arrow-head">&#8595;</div>
+    <span>tap +</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S2 &middot; Create / Moment</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s3-bg">
+        <div class="create-header">
+          <div class="create-title">New Moment</div>
+          <div class="close-btn">&#x2715;</div>
+        </div>
+        <div class="photo-picker">
+          <div class="photo-picker-icon">&#x1F4F7;</div>
+          <div class="photo-picker-text">Tap to capture or choose</div>
+        </div>
+        <div class="text-area">
+          <span class="text-placeholder">What made your heart smile today...</span>
+        </div>
+        <div class="save-btn">Save &amp; Float</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-title">Flow B &mdash; Collect into Bottle</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S6 &middot; Home / Collect Mode</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s5-bg">
+        <div class="s1-header">
+          <div class="s1-title">Little Something</div>
+          <div class="bottle-btn" style="background:#9eff00;font-size:9px;font-weight:900;color:#0a0a0a;width:auto;padding:0 10px;border-radius:4px;letter-spacing:1px;">DONE</div>
+        </div>
+        <div class="collect-banner">Tap a bubble to collect it &#x2728;</div>
+        <div class="collect-mode-ring cr1"></div>
+        <div class="collect-mode-ring cr2"></div>
+        <div class="collect-mode-ring cr3"></div>
+        <div class="bubble b1"><div class="bubble-inner"><div class="bubble-text">sunrise walk</div></div></div>
+        <div class="bubble b2"><div class="bubble-inner"><div class="bubble-text">hot cocoa</div></div></div>
+        <div class="bubble b3"><div class="bubble-inner"><div class="bubble-text">cat nap</div></div></div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab"><div class="nav-dot" style="background:#ccc;border-color:#999;"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arrow-line"></div>
+    <div class="arrow-head">&#8595;</div>
+    <span>tap bubble</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S4 &middot; Lucky Bottle / Main</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s4-bg">
+        <div class="s4-title">Lucky Bottle</div>
+        <div class="bottle-visual">
+          <div class="bottle-neck"></div>
+          <div class="bottle-body">
+            <div class="star-in-bottle">&#11088;</div>
+            <div class="star-in-bottle" style="animation-delay:0.5s;">&#11088;</div>
+            <div class="star-in-bottle" style="animation-delay:1s;">&#10022;</div>
+          </div>
+        </div>
+        <div class="star-count">3 little somethings</div>
+        <div class="stars-grid">
+          <div class="star-chip">&#11088; sunrise walk</div>
+          <div class="star-chip">&#11088; hot cocoa</div>
+          <div class="star-chip">&#10022; cat nap</div>
+        </div>
+        <div style="flex:1;"></div>
+        <div class="unhappy-btn" style="margin-bottom:78px;">&#128577; I'm not happy</div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab"><div class="nav-dot" style="background:#ccc;border-color:#999;"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-title">Flow C &mdash; Mood / Comfort</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S8 &middot; Mood / Popup</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s6-overlay-bg">
+        <div class="mood-popup">
+          <div class="popup-card">
+            <div class="popup-emoji">&#128577;</div>
+            <div class="popup-title">Feeling down?</div>
+            <div class="popup-sub">Let's open a little something from your bottle — a memory just for you.</div>
+            <div class="popup-actions">
+              <div class="popup-btn-cancel">Maybe later</div>
+              <div class="popup-btn-confirm">Yes, show me</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arrow-line"></div>
+    <div class="arrow-head">&#8595;</div>
+    <span>confirm</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S11 &middot; Mood / Memory Reveal</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679; &#9679; &#9679;</span></div>
+      <div class="s7-bg">
+        <div class="memory-header">
+          <div class="back-btn">&#8592;</div>
+          <div class="memory-title">A little something for you</div>
+        </div>
+        <div class="memory-photo">
+          <div class="memory-star-icon">&#11088;</div>
+        </div>
+        <div class="memory-caption">"Caught the most beautiful sunrise this morning. The sky turned every shade of pink..."</div>
+        <div class="memory-tagline">"Don't be sad — look at this beautiful moment you had."</div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab"><div class="nav-dot" style="background:#ccc;border-color:#999;"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

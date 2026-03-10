@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(~/.local/bin/vercel whoami:*)",
+      "Bash(~/.local/bin/vercel login:*)",
+      "Bash(~/.local/bin/vercel deploy:*)",
+      "Bash(~/.local/bin/vercel:*)",
+      "Bash(node:*)",
+      "Bash(/home/admin/.local/bin/vercel:*)",
+      "Bash(npm list:*)",
+      "Bash(pip3:*)",
+      "WebSearch",
+      "Bash(vercel:*)",
+      "Bash(git remote:*)",
+      "Bash(git rm:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

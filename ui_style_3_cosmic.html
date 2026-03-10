@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Something — Style 3: Cosmic Night</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #080c18;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 20px;
+    font-family: -apple-system, 'SF Pro Display', 'Segoe UI', sans-serif;
+  }
+  .style-label {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .style-label h1 {
+    font-size: 22px;
+    color: #e8e0ff;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .style-label p {
+    font-size: 11px;
+    color: #5060a0;
+    margin-top: 8px;
+    letter-spacing: 2px;
+  }
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 280px);
+    gap: 48px;
+    justify-content: center;
+    max-width: 1400px;
+  }
+  .screen-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .screen-label {
+    font-size: 10px;
+    color: #3a4080;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .phone {
+    width: 280px;
+    height: 560px;
+    background: #0c1024;
+    border-radius: 36px;
+    box-shadow:
+      0 0 0 1px rgba(120,100,255,0.15),
+      0 0 40px rgba(80,60,200,0.12),
+      0 24px 64px rgba(0,0,0,0.6),
+      inset 0 0 60px rgba(80,60,200,0.04);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  /* star field bg */
+  .phone::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 20% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 8%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 22%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 35%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 75% 45%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 80%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 85%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(2px 2px at 45% 25%, rgba(200,180,255,0.5) 0%, transparent 100%),
+      radial-gradient(2px 2px at 15% 70%, rgba(180,200,255,0.4) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .status-bar {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    font-size: 10px;
+    color: #4050a0;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+  }
+  .nav-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 64px;
+    background: rgba(8,12,28,0.9);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(120,100,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 24px;
+    z-index: 100;
+  }
+  .nav-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .nav-dot {
+    width: 20px; height: 1px;
+    background: rgba(100,80,200,0.3);
+    border-radius: 1px;
+  }
+  .nav-tab.active .nav-dot {
+    background: linear-gradient(90deg, #8060ff, #c080ff);
+    box-shadow: 0 0 6px rgba(160,100,255,0.6);
+  }
+  .nav-tab span {
+    font-size: 9px;
+    color: rgba(100,80,200,0.4);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .nav-tab.active span {
+    color: #c0a0ff;
+  }
+  .nav-fab {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6040e0, #a060e0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    box-shadow: 0 0 20px rgba(120,60,220,0.5), 0 4px 12px rgba(0,0,0,0.4);
+  }
+
+  /* ============ S1: HOME ============ */
+  .s1-c-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 30%, rgba(60,40,120,0.4) 0%, transparent 70%);
+  }
+  .s1-c-header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 4px 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+  }
+  .s1-c-title {
+    font-size: 12px;
+    color: rgba(160,140,255,0.8);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+  .bottle-c-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(80,60,180,0.2);
+    border: 1px solid rgba(100,80,220,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .bubble-c {
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float-c 7s ease-in-out infinite;
+    overflow: hidden;
+  }
+  @keyframes float-c {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .bc1 { width: 90px; height: 90px; left: 20px; top: 65px;
+    background: radial-gradient(circle at 40% 35%, rgba(80,60,180,0.6), rgba(40,30,100,0.4));
+    box-shadow: 0 0 24px rgba(100,70,220,0.25), inset 0 0 20px rgba(120,100,255,0.15);
+    animation-delay: 0s; border: 1px solid rgba(120,100,255,0.2); }
+  .bc2 { width: 70px; height: 70px; right: 30px; top: 105px;
+    background: radial-gradient(circle at 40% 35%, rgba(60,80,180,0.6), rgba(30,40,100,0.4));
+    box-shadow: 0 0 20px rgba(80,100,220,0.2), inset 0 0 16px rgba(100,120,255,0.12);
+    animation-delay: 1.2s; border: 1px solid rgba(100,120,255,0.2); }
+  .bc3 { width: 80px; height: 80px; left: 85px; top: 180px;
+    background: radial-gradient(circle at 40% 35%, rgba(120,60,160,0.6), rgba(60,30,100,0.4));
+    box-shadow: 0 0 22px rgba(180,80,220,0.2), inset 0 0 18px rgba(200,100,255,0.12);
+    animation-delay: 2.4s; border: 1px solid rgba(180,100,255,0.2); }
+  .bc4 { width: 60px; height: 60px; right: 24px; top: 248px;
+    background: radial-gradient(circle at 40% 35%, rgba(40,80,160,0.6), rgba(20,40,100,0.4));
+    box-shadow: 0 0 18px rgba(60,100,220,0.2), inset 0 0 14px rgba(80,120,255,0.12);
+    animation-delay: 0.6s; border: 1px solid rgba(80,120,255,0.2); }
+  .bc5 { width: 75px; height: 75px; left: 30px; top: 294px;
+    background: radial-gradient(circle at 40% 35%, rgba(100,40,160,0.6), rgba(50,20,100,0.4));
+    box-shadow: 0 0 20px rgba(160,60,220,0.2), inset 0 0 16px rgba(180,80,255,0.12);
+    animation-delay: 1.8s; border: 1px solid rgba(160,80,255,0.2); }
+  .bubble-c-inner {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    position: relative;
+  }
+  .bubble-c-sheen {
+    position: absolute;
+    top: 12%; left: 18%;
+    width: 28%; height: 18%;
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
+    transform: rotate(-30deg);
+  }
+  .bubble-c-emoji { font-size: 20px; }
+  .bubble-c-text {
+    font-size: 7px;
+    color: rgba(180,160,255,0.7);
+    letter-spacing: 0.3px;
+  }
+  .nebula {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(40px);
+    opacity: 0.15;
+  }
+  .nebula1 { width: 120px; height: 80px; background: #6040ff; top: 40px; left: -20px; }
+  .nebula2 { width: 100px; height: 100px; background: #a040c0; top: 200px; right: -10px; }
+
+  /* ============ S2: DETAIL ============ */
+  .s2-c-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .s2-c-dim {
+    position: absolute;
+    inset: 0;
+    background: rgba(4,6,20,0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: flex-end;
+  }
+  .detail-c-card {
+    width: 100%;
+    background: linear-gradient(180deg, #12182e 0%, #0e1428 100%);
+    border-radius: 24px 24px 0 0;
+    padding: 16px 20px 80px;
+    border-top: 1px solid rgba(120,100,255,0.15);
+  }
+  .detail-c-handle {
+    width: 32px; height: 2px;
+    background: rgba(120,100,255,0.3);
+    border-radius: 1px;
+    margin: 0 auto 16px;
+  }
+  .detail-c-photo {
+    width: 100%;
+    height: 140px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #1a1a40, #2a1040);
+    border: 1px solid rgba(120,100,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .photo-glow {
+    position: absolute;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: rgba(120,100,255,0.2);
+    filter: blur(20px);
+  }
+  .detail-c-text {
+    font-size: 12px;
+    color: rgba(200,190,255,0.8);
+    line-height: 1.7;
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+  .detail-c-date {
+    font-size: 10px;
+    color: rgba(80,70,160,0.8);
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+  }
+  .detail-c-actions {
+    display: flex;
+    gap: 10px;
+  }
+  .btn-c-back {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(80,60,180,0.2);
+    border: 1px solid rgba(100,80,220,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: rgba(160,140,255,0.8);
+  }
+  .btn-c-share {
+    flex: 1; height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(80,60,200,0.7), rgba(140,60,200,0.7));
+    border: 1px solid rgba(120,100,255,0.3);
+    font-size: 11px;
+    color: rgba(220,210,255,0.9);
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px rgba(100,70,220,0.25);
+  }
+
+  /* ============ S3: CREATE ============ */
+  .s3-c-bg {
+    flex: 1;
+    background: #0c1024;
+    display: flex;
+    flex-direction: column;
+    padding: 4px 20px;
+    gap: 12px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  .create-c-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(80,60,180,0.15);
+  }
+  .create-c-title {
+    font-size: 14px;
+    color: rgba(200,190,255,0.9);
+    font-weight: 300;
+    letter-spacing: 2px;
+  }
+  .close-c-btn {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: rgba(80,60,180,0.15);
+    border: 1px solid rgba(100,80,220,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: rgba(140,120,255,0.6);
+  }
+  .photo-c-picker {
+    height: 160px;
+    border: 1px dashed rgba(100,80,220,0.3);
+    border-radius: 16px;
+    background: rgba(40,30,100,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .photo-c-icon { font-size: 24px; }
+  .photo-c-text {
+    font-size: 11px;
+    color: rgba(120,100,220,0.6);
+    letter-spacing: 1px;
+  }
+  .text-c-area {
+    flex: 1;
+    border: 1px solid rgba(100,80,220,0.2);
+    border-radius: 14px;
+    background: rgba(40,30,100,0.12);
+    padding: 14px;
+    font-size: 12px;
+    color: rgba(120,100,200,0.5);
+    line-height: 1.7;
+    min-height: 80px;
+    font-style: italic;
+  }
+  .save-c-btn {
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #5030c0, #9040c0);
+    font-size: 12px;
+    color: rgba(230,220,255,0.9);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 24px rgba(100,50,200,0.4), 0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  /* ============ S4: LUCKY BOTTLE ============ */
+  .s4-c-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4px;
+    background: radial-gradient(ellipse at 50% 60%, rgba(80,40,160,0.2) 0%, transparent 70%);
+  }
+  .s4-c-title {
+    font-size: 13px;
+    color: rgba(200,180,255,0.9);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 2px;
+  }
+  .s4-c-sub {
+    font-size: 10px;
+    color: rgba(80,60,160,0.8);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .bottle-c-visual {
+    width: 120px; height: 190px;
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .bottle-c-body {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 80px; height: 140px;
+    background: linear-gradient(180deg, rgba(60,40,150,0.35), rgba(40,20,100,0.25));
+    border: 1px solid rgba(120,100,255,0.3);
+    border-radius: 10px 10px 24px 24px;
+    backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 0 40px rgba(80,50,200,0.25), inset 0 0 30px rgba(100,70,220,0.1);
+  }
+  .bottle-c-neck {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 26px; height: 50px;
+    background: linear-gradient(180deg, rgba(60,40,150,0.35), rgba(40,20,100,0.2));
+    border: 1px solid rgba(120,100,255,0.25);
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+  }
+  .star-c {
+    font-size: 18px;
+    animation: twinkle-c 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 6px rgba(200,180,255,0.7));
+  }
+  .star-c:nth-child(2) { font-size: 14px; animation-delay: 1s; opacity: 0.75; }
+  .star-c:nth-child(3) { font-size: 10px; animation-delay: 2s; opacity: 0.5; }
+  @keyframes twinkle-c {
+    0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 5px rgba(200,180,255,0.7)); }
+    50% { opacity: 0.4; transform: scale(0.75); filter: drop-shadow(0 0 10px rgba(200,180,255,1)); }
+  }
+  .count-c {
+    font-size: 10px;
+    color: rgba(140,120,255,0.55);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .unhappy-c-btn {
+    margin: 12px 20px 80px;
+    height: 44px;
+    border: 1px solid rgba(120,100,255,0.2);
+    border-radius: 12px;
+    width: calc(100% - 40px);
+    font-size: 12px;
+    color: rgba(160,140,255,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(60,40,140,0.15);
+    letter-spacing: 1px;
+  }
+
+  /* ============ COLLECT MODE ============ */
+  .s5-c-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 50% 30%, rgba(60,40,120,0.3) 0%, transparent 70%);
+  }
+  .collect-c-banner {
+    position: absolute;
+    top: 46px; left: 16px; right: 16px;
+    background: rgba(80,60,200,0.25);
+    border: 1px solid rgba(120,100,255,0.25);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-size: 11px;
+    color: rgba(200,190,255,0.8);
+    text-align: center;
+    letter-spacing: 1px;
+    z-index: 20;
+    box-shadow: 0 0 20px rgba(100,70,220,0.15);
+  }
+  .bubble-c-glow {
+    position: absolute;
+    border-radius: 50%;
+    animation: float-c 7s ease-in-out infinite;
+    border: 1px solid rgba(140,120,255,0.4);
+    box-shadow: 0 0 20px rgba(120,90,255,0.3);
+  }
+  .bcg1 { width: 90px; height: 90px; left: 20px; top: 68px;
+    background: radial-gradient(circle at 40% 35%, rgba(80,60,200,0.7), rgba(40,30,120,0.5));
+    animation-delay: 0s; }
+  .bcg2 { width: 70px; height: 70px; right: 30px; top: 108px;
+    background: radial-gradient(circle at 40% 35%, rgba(60,80,200,0.7), rgba(30,40,120,0.5));
+    animation-delay: 1.2s; }
+  .bcg3 { width: 80px; height: 80px; left: 85px; top: 180px;
+    background: radial-gradient(circle at 40% 35%, rgba(120,60,180,0.7), rgba(60,30,120,0.5));
+    animation-delay: 2.4s; }
+
+  /* ============ MOOD POPUP ============ */
+  .s6-c-bg {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .s6-c-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(4,6,20,0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .mood-c-popup {
+    background: linear-gradient(180deg, #141830 0%, #0e1228 100%);
+    border: 1px solid rgba(120,100,255,0.2);
+    border-radius: 20px;
+    padding: 28px 20px 22px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 40px rgba(80,50,200,0.2), 0 16px 40px rgba(0,0,0,0.4);
+  }
+  .mood-c-orb {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(100,60,200,0.4), rgba(60,30,140,0.2));
+    border: 1px solid rgba(120,100,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 0 20px rgba(100,60,200,0.3);
+  }
+  .mood-c-title {
+    font-size: 14px;
+    color: rgba(220,210,255,0.9);
+    text-align: center;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+  .mood-c-sub {
+    font-size: 11px;
+    color: rgba(120,110,200,0.7);
+    text-align: center;
+    line-height: 1.7;
+  }
+  .mood-c-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    margin-top: 4px;
+  }
+  .mood-c-cancel {
+    flex: 1; height: 38px;
+    border: 1px solid rgba(100,80,200,0.2);
+    border-radius: 10px;
+    font-size: 11px;
+    color: rgba(120,110,200,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 1px;
+  }
+  .mood-c-confirm {
+    flex: 1; height: 38px;
+    background: linear-gradient(135deg, rgba(80,50,200,0.7), rgba(140,60,200,0.7));
+    border: 1px solid rgba(120,100,255,0.3);
+    border-radius: 10px;
+    font-size: 11px;
+    color: rgba(220,210,255,0.9);
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 14px rgba(100,60,220,0.3);
+  }
+
+  /* ============ MEMORY REVEAL ============ */
+  .s7-c-bg {
+    flex: 1;
+    background: linear-gradient(180deg, #0c1024 0%, #0e1230 60%, #12102a 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 4px 20px 80px;
+    gap: 12px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  .mem-c-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(80,60,180,0.12);
+  }
+  .mem-c-back {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: rgba(60,40,150,0.2);
+    border: 1px solid rgba(100,80,220,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: rgba(140,120,255,0.7);
+  }
+  .mem-c-title {
+    font-size: 12px;
+    color: rgba(180,170,255,0.8);
+    font-weight: 300;
+    letter-spacing: 2px;
+  }
+  .mem-c-photo {
+    width: 100%;
+    height: 180px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #1a1040, #20103a, #101830);
+    border: 1px solid rgba(120,100,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(80,50,200,0.15);
+  }
+  .mem-c-glow {
+    position: absolute;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(100,70,220,0.15);
+    filter: blur(30px);
+  }
+  .mem-c-star { position: relative; z-index: 1; filter: drop-shadow(0 0 12px rgba(200,180,255,0.8)); }
+  .mem-c-text {
+    font-size: 12px;
+    color: rgba(180,170,255,0.75);
+    line-height: 1.8;
+    padding: 12px 14px;
+    background: rgba(60,40,140,0.12);
+    border: 1px solid rgba(100,80,200,0.1);
+    border-radius: 12px;
+    font-weight: 300;
+  }
+  .mem-c-tagline {
+    font-size: 10px;
+    color: rgba(100,80,180,0.6);
+    text-align: center;
+    letter-spacing: 1.5px;
+    font-style: italic;
+    padding-top: 4px;
+  }
+
+  /* Connectors */
+  .flow-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #2a3070;
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+  .arr-line {
+    width: 1px; height: 28px;
+    background: linear-gradient(180deg, #2a3070, #1a2050);
+  }
+  .arr-head { font-size: 14px; color: #3a4090; }
+
+  .section-title {
+    font-size: 10px;
+    color: #2a3070;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 48px 0 28px;
+    width: 100%;
+    max-width: 1400px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(60,80,160,0.15);
+  }
+</style>
+</head>
+<body>
+
+<div class="style-label">
+  <h1>Little Something</h1>
+  <p>Style 03 &mdash; Cosmic Night &mdash; Dark, ethereal, glowing stars</p>
+</div>
+
+<!-- FLOW A -->
+<div class="section-title">Flow A &mdash; Record &amp; Browse</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S1 &middot; Home / Moments</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s1-c-bg">
+        <div class="nebula nebula1"></div>
+        <div class="nebula nebula2"></div>
+        <div class="s1-c-header">
+          <div class="s1-c-title">Little</div>
+          <div class="bottle-c-btn">&#x1F9F4;</div>
+        </div>
+        <div class="bubble-c bc1"><div class="bubble-c-inner"><div class="bubble-c-sheen"></div><div class="bubble-c-emoji">&#x1F305;</div><div class="bubble-c-text">sunrise walk</div></div></div>
+        <div class="bubble-c bc2"><div class="bubble-c-inner"><div class="bubble-c-sheen"></div><div class="bubble-c-emoji">&#x2615;</div><div class="bubble-c-text">hot cocoa</div></div></div>
+        <div class="bubble-c bc3"><div class="bubble-c-inner"><div class="bubble-c-sheen"></div><div class="bubble-c-emoji">&#x1F408;</div><div class="bubble-c-text">cat nap</div></div></div>
+        <div class="bubble-c bc4"><div class="bubble-c-inner"><div class="bubble-c-sheen"></div><div class="bubble-c-emoji">&#x1F327;</div><div class="bubble-c-text">rain</div></div></div>
+        <div class="bubble-c bc5"><div class="bubble-c-inner"><div class="bubble-c-sheen"></div><div class="bubble-c-emoji">&#x1F4DA;</div><div class="bubble-c-text">book cafe</div></div></div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab"><div class="nav-dot"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arr-line"></div>
+    <div class="arr-head">&#8595;</div>
+    <span>tap bubble</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S3 &middot; Detail / Moment</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s2-c-bg">
+        <div class="nebula nebula1"></div>
+        <div class="s2-c-dim">
+          <div class="detail-c-card">
+            <div class="detail-c-handle"></div>
+            <div class="detail-c-photo"><div class="photo-glow"></div><span style="position:relative;z-index:1;">&#x1F305;</span></div>
+            <div class="detail-c-text">"Caught the most beautiful sunrise this morning. The sky turned every shade of pink."</div>
+            <div class="detail-c-date">March 7, 2026 &middot; 6:23 AM</div>
+            <div class="detail-c-actions">
+              <div class="btn-c-back">&#8592;</div>
+              <div class="btn-c-share">Share Moment</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arr-line"></div>
+    <div class="arr-head">&#8595;</div>
+    <span>tap +</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S2 &middot; Create / Moment</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s3-c-bg">
+        <div class="nebula nebula2" style="opacity:0.1;"></div>
+        <div class="create-c-header">
+          <div class="create-c-title">New Moment</div>
+          <div class="close-c-btn">&#x2715;</div>
+        </div>
+        <div class="photo-c-picker">
+          <div class="photo-c-icon">&#x1F4F7;</div>
+          <div class="photo-c-text">Capture or choose</div>
+        </div>
+        <div class="text-c-area">What made you smile a little today?</div>
+        <div class="save-c-btn">Save &amp; Float</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FLOW B -->
+<div class="section-title">Flow B &mdash; Collect into Bottle</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S6 &middot; Home / Collect Mode</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s5-c-bg">
+        <div class="nebula nebula1"></div>
+        <div class="s1-c-header">
+          <div class="s1-c-title">Little</div>
+          <div style="font-size:10px;color:rgba(160,140,255,0.7);letter-spacing:1px;border-bottom:1px solid rgba(120,100,255,0.3);">Done</div>
+        </div>
+        <div class="collect-c-banner">Tap a bubble to collect it &#x2728;</div>
+        <div class="bubble-c-glow bcg1"><div class="bubble-c-inner"><div class="bubble-c-emoji">&#x1F305;</div><div class="bubble-c-text">sunrise walk</div></div></div>
+        <div class="bubble-c-glow bcg2"><div class="bubble-c-inner"><div class="bubble-c-emoji">&#x2615;</div><div class="bubble-c-text">hot cocoa</div></div></div>
+        <div class="bubble-c-glow bcg3"><div class="bubble-c-inner"><div class="bubble-c-emoji">&#x1F408;</div><div class="bubble-c-text">cat nap</div></div></div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab"><div class="nav-dot"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arr-line"></div>
+    <div class="arr-head">&#8595;</div>
+    <span>collect &amp; view</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S4 &middot; Lucky Bottle / Main</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s4-c-bg">
+        <div class="nebula nebula2"></div>
+        <div class="s4-c-title">Lucky Bottle</div>
+        <div class="s4-c-sub">Your little somethings</div>
+        <div class="bottle-c-visual">
+          <div class="bottle-c-neck"></div>
+          <div class="bottle-c-body">
+            <div class="star-c">&#11088;</div>
+            <div class="star-c">&#11088;</div>
+            <div class="star-c">&#10022;</div>
+          </div>
+        </div>
+        <div class="count-c">something is waiting for you inside</div>
+        <div style="flex:1;"></div>
+        <div class="unhappy-c-btn">&#128577;&nbsp;&nbsp;I'm not happy</div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab"><div class="nav-dot"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FLOW C -->
+<div class="section-title">Flow C &mdash; Mood / Comfort</div>
+<div class="flow-grid">
+
+  <div class="screen-card">
+    <div class="screen-label">S8 &middot; Mood / Popup</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s6-c-bg">
+        <div class="nebula nebula1"></div>
+        <div class="nebula nebula2"></div>
+        <div class="s6-c-overlay">
+          <div class="mood-c-popup">
+            <div class="mood-c-orb">&#128577;</div>
+            <div class="mood-c-title">Want your bottle to cheer you up?</div>
+            <div class="mood-c-sub">There's something inside waiting for moments just like this one.</div>
+            <div class="mood-c-actions">
+              <div class="mood-c-cancel">Not now</div>
+              <div class="mood-c-confirm">Open it</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-connector">
+    <div class="arr-line"></div>
+    <div class="arr-head">&#8595;</div>
+    <span>confirm</span>
+  </div>
+
+  <div class="screen-card">
+    <div class="screen-label">S11 &middot; Memory Reveal</div>
+    <div class="phone">
+      <div class="status-bar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+      <div class="s7-c-bg">
+        <div class="nebula nebula1" style="opacity:0.12;"></div>
+        <div class="mem-c-header">
+          <div class="mem-c-back">&#8592;</div>
+          <div class="mem-c-title">A little something for you</div>
+        </div>
+        <div class="mem-c-photo">
+          <div class="mem-c-glow"></div>
+          <div class="mem-c-star">&#11088;</div>
+        </div>
+        <div class="mem-c-text">"Caught the most beautiful sunrise this morning. The sky turned every shade of pink I didn't know existed."</div>
+        <div class="mem-c-tagline">Don't be sad anymore — look how happy you were, back then.</div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-tab"><div class="nav-dot"></div><span>Little</span></div>
+        <div class="nav-fab">+</div>
+        <div class="nav-tab active"><div class="nav-dot"></div><span>Bottle</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
