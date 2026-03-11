@@ -34,6 +34,11 @@ let signupConfirmValid = false;
 
 const AUTH_SETTINGS_TIMEOUT_MS = 5000;
 const AUTH_SESSION_TIMEOUT_MS = 8000;
+const LOCAL_MOMENTS_KEY = 'ls_moments';
+const LOCAL_STARS_KEY = 'ls_stars';
+const LOCAL_DATA_ORIGIN_KEY = 'ls_data_origin';
+const LOCAL_DATA_ORIGIN_LOCAL = 'local';
+const LOCAL_DATA_ORIGIN_REMOTE = 'remote';
 
 const PLACEHOLDERS = [
   '今天有什么让你小小高兴了一下？',
@@ -656,20 +661,32 @@ function initAuthUI() {
 
 // ===== LOCAL STORAGE HELPERS =====
 
-function saveLocal() {
+function saveLocal(origin = localMode ? LOCAL_DATA_ORIGIN_LOCAL : LOCAL_DATA_ORIGIN_REMOTE) {
   try {
-    localStorage.setItem('ls_moments', JSON.stringify(state.moments));
-    localStorage.setItem('ls_stars', JSON.stringify(state.stars));
+    localStorage.setItem(LOCAL_MOMENTS_KEY, JSON.stringify(state.moments));
+    localStorage.setItem(LOCAL_STARS_KEY, JSON.stringify(state.stars));
+    localStorage.setItem(LOCAL_DATA_ORIGIN_KEY, origin);
   } catch (e) { console.warn('localStorage save failed:', e); }
+}
+
+function clearLocalDataCache() {
+  localStorage.removeItem(LOCAL_MOMENTS_KEY);
+  localStorage.removeItem(LOCAL_STARS_KEY);
+  localStorage.removeItem(LOCAL_DATA_ORIGIN_KEY);
 }
 
 function loadLocal() {
   try {
-    const m = localStorage.getItem('ls_moments');
-    const s = localStorage.getItem('ls_stars');
+    const m = localStorage.getItem(LOCAL_MOMENTS_KEY);
+    const s = localStorage.getItem(LOCAL_STARS_KEY);
     if (m) state.moments = JSON.parse(m);
     if (s) state.stars = JSON.parse(s);
   } catch (e) { console.warn('localStorage load failed:', e); }
+}
+
+function shouldMigrateLocalData() {
+  return localStorage.getItem(LOCAL_DATA_ORIGIN_KEY) === LOCAL_DATA_ORIGIN_LOCAL
+    && !!localStorage.getItem(LOCAL_MOMENTS_KEY);
 }
 
 // ===== DATA LAYER (Supabase with localStorage fallback) =====
@@ -789,7 +806,7 @@ function compressImage(file, maxDim, quality) {
 
 async function saveMomentToDb(momentData, { allowLocalFallback = true } = {}) {
   if (localMode) {
-    saveLocal();
+    saveLocal(LOCAL_DATA_ORIGIN_LOCAL);
     return momentData;
   }
   try {
@@ -807,16 +824,17 @@ async function saveMomentToDb(momentData, { allowLocalFallback = true } = {}) {
     if (error) {
       console.error('Save moment error:', error);
       if (allowLocalFallback) {
-        saveLocal();
+        saveLocal(LOCAL_DATA_ORIGIN_LOCAL);
         return momentData;
       }
       return null;
     }
+    saveLocal(LOCAL_DATA_ORIGIN_REMOTE);
     return data;
   } catch (e) {
     if (allowLocalFallback) {
       console.warn('saveMomentToDb failed, saved locally:', e);
-      saveLocal();
+      saveLocal(LOCAL_DATA_ORIGIN_LOCAL);
       return momentData;
     }
     console.warn('saveMomentToDb failed:', e);
@@ -825,18 +843,19 @@ async function saveMomentToDb(momentData, { allowLocalFallback = true } = {}) {
 }
 
 async function updateMomentStatus(momentId, newStatus) {
-  if (localMode) { saveLocal(); return; }
+  if (localMode) { saveLocal(LOCAL_DATA_ORIGIN_LOCAL); return; }
   try {
     const { error } = await supabaseClient.from('moments').update({ status: newStatus }).eq('id', momentId);
     if (error) console.error('Update moment status error:', error);
+    saveLocal(error ? LOCAL_DATA_ORIGIN_LOCAL : LOCAL_DATA_ORIGIN_REMOTE);
   } catch (e) {
     console.warn('updateMomentStatus failed:', e);
+    saveLocal(LOCAL_DATA_ORIGIN_LOCAL);
   }
-  saveLocal();
 }
 
 async function insertStar(star) {
-  if (localMode) { saveLocal(); return; }
+  if (localMode) { saveLocal(LOCAL_DATA_ORIGIN_LOCAL); return; }
   try {
     const { error } = await supabaseClient.from('stars').insert({
       id: star.id,
@@ -845,21 +864,23 @@ async function insertStar(star) {
       collected_at: star.collectedAt,
     });
     if (error) console.error('Insert star error:', error);
+    saveLocal(error ? LOCAL_DATA_ORIGIN_LOCAL : LOCAL_DATA_ORIGIN_REMOTE);
   } catch (e) {
     console.warn('insertStar failed:', e);
+    saveLocal(LOCAL_DATA_ORIGIN_LOCAL);
   }
-  saveLocal();
 }
 
 async function deleteStar(momentId) {
-  if (localMode) { saveLocal(); return; }
+  if (localMode) { saveLocal(LOCAL_DATA_ORIGIN_LOCAL); return; }
   try {
     const { error } = await supabaseClient.from('stars').delete().eq('moment_id', momentId);
     if (error) console.error('Delete star error:', error);
+    saveLocal(error ? LOCAL_DATA_ORIGIN_LOCAL : LOCAL_DATA_ORIGIN_REMOTE);
   } catch (e) {
     console.warn('deleteStar failed:', e);
+    saveLocal(LOCAL_DATA_ORIGIN_LOCAL);
   }
-  saveLocal();
 }
 
 // ===== MIGRATION (localStorage → Supabase) =====
@@ -867,8 +888,8 @@ async function deleteStar(momentId) {
 async function migrateLocalData() {
   let oldMoments, oldStars;
   try {
-    const m = localStorage.getItem('ls_moments');
-    const s = localStorage.getItem('ls_stars');
+    const m = localStorage.getItem(LOCAL_MOMENTS_KEY);
+    const s = localStorage.getItem(LOCAL_STARS_KEY);
     if (m) oldMoments = JSON.parse(m);
     if (s) oldStars = JSON.parse(s);
   } catch (e) { return; }
@@ -922,8 +943,7 @@ async function migrateLocalData() {
   }
 
   // Clear localStorage after successful migration
-  localStorage.removeItem('ls_moments');
-  localStorage.removeItem('ls_stars');
+  clearLocalDataCache();
 
   // Reload data from server
   await loadData();
@@ -1105,8 +1125,15 @@ function createBubbleEl(moment, x, y, size, index) {
         img.className = 'bubble-photo';
         img.draggable = false;
         img.onload = () => { emoji.remove(); };
-        img.onerror = () => { img.remove(); };
+        img.onerror = () => {
+          // fallback: show a placeholder icon if image fails to load
+          img.remove();
+          emoji.textContent = '🖼️';
+        };
         el.insertBefore(img, emoji);
+      } else {
+        // fallback when no URL (e.g., permission issue)
+        emoji.textContent = '🖼️';
       }
     });
   } else if (moment.photoData) {
@@ -1314,20 +1341,17 @@ async function saveMoment() {
     color: randomFrom(BUBBLE_COLORS),
   };
 
-  // Save to Supabase
-  state.moments.push(moment);
-
   const saved = await saveMomentToDb(moment, { allowLocalFallback: false });
   btn.disabled = false;
 
   if (!saved) {
-    // Rollback: remove the moment we just pushed
-    const idx = state.moments.findIndex(m => m.id === moment.id);
-    if (idx !== -1) state.moments.splice(idx, 1);
     await deleteUploadedPhoto(photoPath);
     showToast(localMode ? '保存失败，请重试' : '云端保存失败，请重试');
     return;
   }
+
+  // Add to local state after DB confirms
+  state.moments.push(moment);
 
   navigateTo('home');
 
@@ -2108,10 +2132,6 @@ async function init() {
       hideAuth();
       requestAnimationFrame(renderBubbles);
 
-      if (localStorage.getItem('ls_moments')) {
-        await migrateLocalData();
-        renderBubbles();
-      }
     } else {
       hideLoading();
       showAuth('login');
@@ -2128,7 +2148,7 @@ async function init() {
         hideAuth();
         renderBubbles();
 
-        if (localStorage.getItem('ls_moments')) {
+        if (shouldMigrateLocalData()) {
           await migrateLocalData();
           renderBubbles();
         }
